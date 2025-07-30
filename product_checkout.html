@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Checkout</title>
+  <style>
+    body {
+      display: flex;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .left, .right {
+      padding: 20px;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    .left {
+      width: 60%;
+      background-color: #f5f5f5;
+      border-right: 1px solid #ccc;
+    }
+    .right {
+      width: 40%;
+      background-color: #fff;
+    }
+    .product-image {
+      max-width: 100%;
+      height: auto;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, textarea, button {
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="left" id="product-info">
+  <!-- Product details will be filled using JS -->
+</div>
+
+<div class="right">
+  <h2>Checkout Form</h2>
+  <form onsubmit="event.preventDefault(); alert('Order Placed!');">
+    <input type="text" name="name" placeholder="Full Name" required />
+    <input type="email" name="email" placeholder="Email Address" required />
+    <textarea name="address" placeholder="Shipping Address" required></textarea>
+    <button type="submit">Place Order</button>
+  </form>
+</div>
+
+<script>
+  const products = [
+    {
+    id: 1,
+    name: "Smartphone",
+    price: 299,
+    image: "https://sparx.pk/cdn/shop/files/New-5-pro.jpg?v=1721641789",
+    desc: "A high-performance smartphone with excellent camera and battery life."
+  },
+  {
+    id: 2,
+    name: "Headphones",
+    price: 99,
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREgv_MElQPfeqQRKNeT7qt0GaE-wkdRliDVQ&s",
+    desc: "Noise-cancelling headphones with deep bass and long battery."
+  },
+  {
+    id: 3,
+    name: "Keyboard",
+    price: 49,
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpTI_MxrW1ayHfftlXVwjx_Bdm2BYjQbjhEg&s",
+    desc: "Compact mechanical keyboard for fast and smooth typing."
+  },
+  { id: 4, 
+    name: "Phone X", 
+    price: 59, 
+    image: "https://image.made-in-china.com/155f0j00oKuWzZdgSqkw/High-Quality4g-Android-11-0-Smart-Phone-6-7inch-Smartphone-Mobile-Phones-Android-Mobile-Phones.webp" ,
+    desc: "Sleek and powerful smartphone with a 6.7-inch display, dual cameras, and long-lasting battery — perfect for everyday use and entertainment."  
+  },
+  { id: 5, 
+    name: "Adapter", 
+    price: 99, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIiXZhdfL2HQQid_xTzqBHqi6aHqz6CW6q9w&s",
+    desc: "Compact and reliable power adapter suitable for fast charging a wide range of devices, including smartphones, tablets, and other electronics." 
+  },
+  { id: 6, 
+    name: "Smartwatch", 
+    price: 79, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHU_lS-uZKaAzvFN5IYXY6GP7yszjFlB4wuA&s",
+    desc: "Stylish smartwatch with fitness tracking, heart rate monitoring, and customizable watch faces to keep you connected and active all day." 
+  },
+  { id: 7, 
+    name: "Gaming Mouse", 
+    price: 35, 
+    image: "https://easetec.com.pk/wp-content/uploads/2023/01/4-20.jpg",
+    desc: "Ergonomic gaming mouse with high-precision sensor, customizable buttons, and RGB lighting for an immersive gaming experience." 
+  },
+  { id: 8, 
+    name: "Bluetooth Speaker", 
+    price: 120, 
+    image: "https://www.ratdin.pk/cdn/shop/products/g500-led-wireless-charging-bluetooth-speaker-smart-table-night-light-bt-music-player-phone-wireless-charging-rgb-desk-lamp-without-clock-993385_large.jpg?v=1708425106", 
+    desc: "Portable Bluetooth speaker with powerful sound, deep bass, and long battery life — perfect for music on the go."
+  },
+  { id: 9, 
+    name: "Tablet", 
+    price: 199, 
+    image: "https://image.made-in-china.com/2f0j00qkNlgiUWnOYe/Mtk6789-Octa-Core-Tablet-Computer-Portable-Flat-PC-RAM-8GB-ROM-256GB-Gaming-Tablets.webp",
+    desc: "Lightweight and powerful tablet with high-resolution display, fast processor, and ample storage — ideal for work, entertainment, and creativity." 
+  },
+  { id: 10, 
+    name: "VR Headset", 
+    price: 159, 
+    image: "https://toygenix.com.pk/cdn/shop/files/Meta_1.png?v=1712136152" ,
+    desc: "Immersive VR headset with high-definition display, wide field of view, and comfortable design — experience virtual reality like never before."
+  },
+  { id: 11, 
+    name: "Laptop", 
+    price: 899, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1ZjjiwnN8mKAPKmQ_1cqEtISJFfJSR5jbNATxT3eg0XFWzqwM9ZKlVMcl6eppnXHieYc&usqp=CAU",
+    desc: "High-performance laptop with a fast processor, ample RAM, and a vibrant display — perfect for work, gaming, and multimedia." 
+  },
+  { id: 12, 
+    name: "Camera", 
+    price: 499, 
+    image: "https://m.media-amazon.com/images/I/71bEYFvV5lL.jpg",
+    desc: "High-resolution digital camera with advanced autofocus, optical zoom, and image stabilization — capture every moment in stunning detail." 
+  },
+  { id: 13, 
+    name: "Charger", 
+    price: 19, 
+    image: "https://powerhouseexpress.com.pk/cdn/shop/files/1hora-gar162b-20w-charger-dual-u-c-type-c-to-type-c-cable.webp?v=1746242032&width=1946",
+    desc: "Compact and fast charger with dual USB ports, compatible with a wide range of devices for convenient and efficient charging." 
+  },
+  { id: 14, 
+    name: "USB Cable", 
+    price: 10, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5nPBwLkp_xd_25F8_HYQkiWaCA1cIFQ4Skg&s",
+    desc: "Durable USB cable with fast data transfer and charging support, compatible with most smartphones, tablets, and devices." 
+  },
+  { id: 15, 
+    name: "Drone", 
+    price: 299, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwuAxPxgLUGNHz-GonLkwvTzCM2S_88LrkZmP0iLDLTi3jkX232268B2lYgwoN5WTep2o&usqp=CAU", 
+    desc: "High-performance drone with HD camera, stable flight controls, and long battery life — perfect for aerial photography and fun flying."  
+  },
+  { id: 16,
+    name: "Monitor", 
+    price: 229, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqJKxm3F1rCscdbHMQhx9Btz1R35MCghrScQ&s",
+    desc: "High-resolution monitor with vibrant colors, fast response time, and adjustable stand — ideal for work, gaming, and multimedia." 
+  },
+  { id: 17, 
+    name: "Power Bank", 
+    price: 39, 
+    image: "https://saamaan.pk/cdn/shop/files/Aspor-A336-Saamaanpk4_1024x.webp?v=1735634610",
+    desc: "Compact power bank with fast charging and high capacity — keep your devices powered up anytime, anywhere." 
+  },
+  { id: 18, 
+    name: "Microphone", 
+    price: 89, 
+    image: "https://m.media-amazon.com/images/I/71QJ287PeyL._UF1000,1000_QL80_.jpg",
+    desc: "High-quality microphone with noise reduction and clear audio capture — perfect for streaming, recording, and communication." 
+  },
+  { id: 19, 
+    name: "Smart Light", 
+    price: 45, 
+    image: "https://i5.walmartimages.com/seo/Smart-Light-Bulb-Wifi-Bulb-Color-Changing-LED-Bluetooth-Bulbs-APP-Remote-Controlled-Home-Lamp-Compatible-Alexa-Google-Assistant_1cba82fc-0e92-4d71-9b8a-38b182274c72_1.52bd96b1839a4c777e202ad19fe2492e.jpeg", 
+    desc: "Energy-efficient smart light bulb with customizable colors and remote control — create the perfect ambiance from your phone."
+  },
+  { id: 20, 
+    name: "E-Reader", 
+    price: 119, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShvk85GyW7CDLPBJpqZmlxK-vAuiMbUn00nA&s",
+    desc: "Lightweight e-reader with glare-free display and long battery life — enjoy reading your favorite books anytime, anywhere." 
+  },
+  { id: 21, 
+    name: "cpu", 
+    price: 129, 
+    image: "https://www.shutterstock.com/image-vector/computer-case-front-rear-side-600nw-144192091.jpg",
+    desc: "High-performance CPU with multiple cores and fast clock speed — designed for efficient multitasking and smooth computing." 
+  },
+  { id: 22, 
+    name: "Airbud", 
+    price: 199, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCniHiAYJQ04SwJyVIKScHsr1C11mcVvavPg&s",
+    desc: "Wireless earbuds with clear sound, comfortable fit, and long battery life — perfect for music and hands-free calls on the go." 
+  },
+  { id: 20, 
+    name: "Handfree", 
+    price: 139, 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEKnZm1l_MXaFwt8qzmLCG-I-tHzKQPVnYMQ&s",
+    desc: "Comfortable wired headset with clear audio, built-in microphone, and durable cable — ideal for calls, gaming, and music." 
+  },
+  { id: 23, 
+    name: "TV", 
+    price: 169, 
+    image: "https://friendshome.pk/cdn/shop/files/Untitledproject_64_f32a0f69-d687-470a-abc6-14230b77b2f0.jpg?v=1738587024&width=1000" ,
+    desc: "Smart TV with vibrant display, built-in apps, and multiple connectivity options — enjoy your favorite shows and movies in stunning quality."
+  },
+  { id: 24, 
+    name: "Handfree", 
+    price: 119, 
+    image: "https://5.imimg.com/data5/SELLER/Default/2025/4/500703732/PP/SB/OQ/112494282/dlms-smart-meter-reading-app-500x500.jpg", 
+    desc: "High-quality wired handfree with noise-isolating ear tips, built-in microphone, and inline controls — perfect for clear calls and immersive music."
+  }
+  ];
+
+  const params = new URLSearchParams(window.location.search);
+  const productId = parseInt(params.get("id"));
+
+  const product = products.find(p => p.id === productId);
+
+ if (product) {
+  document.getElementById("product-info").innerHTML = `
+    <h2>${product.name}</h2>
+    <img src="${product.image}" alt="${product.name}" class="product-image"/>
+    <p><strong>Price:</strong> $${product.price}</p>
+    <p><strong>Description:</strong> ${product.desc}</p>
+  `;
+} else {
+    document.getElementById("product-info").innerHTML = `<p>Product not found.</p>`;
+  }
+</script>
+
+</body>
+</html>
